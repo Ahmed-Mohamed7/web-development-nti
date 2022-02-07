@@ -10,12 +10,14 @@ function GetNextChar(string $char): string
     if ($char >= 'a' && $char <= 'z') 
     {
         #lower case
-        return chr(((ord($char) - $a) + 1) % 26 + $a);
+        $new_char = ord($char) - $a + 1;
+        return chr($new_char % 26 + $a);
     } 
     else if ($char >= 'A' && $char <= 'Z') 
     {
         #upper case
-        return chr(((ord($char) - $A) + 1) % 26 + $A);
+        $new_char = ord($char) - $A + 1;
+        return chr($new_char % 26 + $A);
     }
     return '-1';
 }
