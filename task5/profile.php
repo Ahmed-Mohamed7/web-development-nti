@@ -4,7 +4,7 @@ $filePath = 'data/data.txt';
 ## if file is not found or empty redirect to form page
 if (!file_exists($filePath) || !filesize($filePath))
 {
-    echo "<SCRIPT> //not showing me this
+    echo "<SCRIPT> 
         alert('404 not found')
         window.location.replace('./task.php');
     </SCRIPT>";
