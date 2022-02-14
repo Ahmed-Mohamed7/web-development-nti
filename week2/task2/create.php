@@ -81,12 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 
-/*
-   
- create db   (blog)    >>> table [title , content , category ]     
- create connection by php code .... 
-*/
-
     mysqli_close($conn);
 ?>
 
