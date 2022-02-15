@@ -87,7 +87,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         else   echo mysqli_error($conn);
     } 
     else
-        $_SESSION['errors'] = $errors;
+        foreach ($errors as $key => $value) {
+            echo "<br>".$key."  :  ".$value."<br>";
+        }
 }
 
 
@@ -117,21 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <h2>Register</h2>
 
         <form action="<?php echo  htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" enctype="multipart/form-data">
-            <div style="background-color: wheat;">
-                <?php
-                if(isset($_SESSION['errors']))
-                {
-                    foreach ($_SESSION['errors'] as $key => $value) {
-                        echo $key." ".$value."<br>";
-                    }
-                    unset($_SESSION['errors']);
-                }
-                
-                ?>
-            </div>
             
-           
-
 
             <div class="form-group">
                 <label for="exampleInputName">title</label>
