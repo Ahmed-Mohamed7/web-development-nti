@@ -5,6 +5,11 @@ require 'connections.php';
 require 'helpers.php';
 
 
+if(!isset($_SESSION['user_id']))
+{
+    echo "<script> alert('you should register first'); window.location.href='./login.php'; </script>";
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title =  Clean($_POST['title'], 0);
     $content = Clean($_POST['content'], 0);
@@ -77,7 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     #check for errors
     if (count($errors) == 0) {
-        $sql = "insert into todolist (`title`,`content`,`stdate`,`enddate`,`image`) values ('$title','$content','$stDate','$endDate','$disPath')";
+        $id = $_SESSION['user_id'];
+        $sql = "insert into todolist (`title`,`content`,`stdate`,`enddate`,`image`,`user_id`) values ('$title','$content','$stDate','$endDate','$disPath',$id)";
         $op = mysqli_query($conn, $sql);
         if ($op)
             echo ("<script LANGUAGE='JavaScript'>
@@ -92,10 +98,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 }
 
-
-
-
     mysqli_close($conn);
+
 ?>
 
 
@@ -116,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
 
     <div class="container">
-        <h2>add task</h2>
+        <h2>Register</h2>
 
         <form action="<?php echo  htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" enctype="multipart/form-data">
             
