@@ -25,7 +25,7 @@ class PostController extends Controller
         $image = $request->image;
 
         # generate image name
-        $imageName = time().'_'.$image->getClientOriginalName().'.'. $image->extension();  
+        $imageName = time().'_'.$image->getClientOriginalName();  
         # move the images into public path 
         $request->image->move(public_path('images'), $imageName);
 
