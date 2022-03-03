@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\todoListController;
 use App\Http\Controllers\userController;
+use App\Models\todoList;
+use phpDocumentor\Reflection\Types\Resource_;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,11 +21,12 @@ use App\Http\Controllers\userController;
 Route::get('user/login',[userController::class,'login']);
 Route::post('user/doLogin',[userController::class,'doLogin']);
 Route::get('user/logout',[userController::class,'logout']);
+Route::get('user/register',[userController::class,'register']);
+Route::post('user/register',[userController::class,'doRegister']);
 
-
-
-Route::get('index/',[todoListController::class,'index']);
-Route::get('create/',[todoListController::class,'create']);
-Route::post('store/',[todoListController::class,'store']);
-Route::get('/delete/{id}',[todoListController::class,'delete']);
-
+Route::middleware(['checkauth'])->group(function(){
+    Route::get('user/{id}',[userController::class,'show']);
+    Route::put('user/{id}',[userController::class,'update']);
+    });
+#todolist routes
+Route::resource('todolist',todoListController::class)->middleware(['checkauth']);

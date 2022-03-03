@@ -2,19 +2,18 @@
 <html lang="en">
 
 <head>
-    <title>Add Task</title>
+    <title>Edit</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-</head>
-
 <style>
     body{
         background: rgb(74, 74, 248);
     }
 </style>
+</head>
 
 <body>
 
@@ -24,8 +23,10 @@
 
 
 
-    <div class="container mt-5 py-5 bg-light">
-        <h2 class="text-center">Add task</h2>
+    <div class="container bg-light mt-5 pb-4">
+        <h1 class="text-center text-primary my-5 display-4">Edit Task</h1>
+        <a href="{{ url('todolist')}}" class="btn btn-primary"><< back to tasks</a><hr>
+
 
         @if ($errors->any())
 
@@ -39,42 +40,49 @@
         @endif
 
 
-        <form action="{{ url('todolist') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ url('todolist/'.$data->id) }}" method="post" enctype="multipart/form-data">
 
             @csrf
+            @method("put")
 
 
             <div class="form-group">
                 <label for="exampleInputName">Title</label>
                 <input type="text" class="form-control" id="exampleInputName" aria-describedby="" name="title"
-                    placeholder="Enter title" >
+                    placeholder="Enter Title" value="{{ $data->title }}">
             </div>
 
 
             <div class="form-group">
-                <label for="exampleInputEmail">content</label>
-                <input type="text" class="form-control" id="exampleInputEmail1"
-                    name="content" placeholder="Enter content" >
+                <label for="exampleInputEmail">Content</label>
+                <textarea name="content" class="form-control" id="" cols="30"
+                    rows="2">  {{ $data->content }}  </textarea>
             </div>
-
             <div class="form-group">
-                <label for="exampleInputName">Start Date</label>
+                <label for="exampleInputEmail">start date</label>
                 <input type="date" class="form-control" id="exampleInputName" aria-describedby="" name="stdate"
-                    placeholder="Enter Name" >
+                placeholder="Enter Title" value="{{ $data->stdate }}">
             </div>
-
             <div class="form-group">
-                <label for="exampleInputName">End Date </label>
+                <label for="exampleInputEmail">end date</label>
                 <input type="date" class="form-control" id="exampleInputName" aria-describedby="" name="enddate"
-                    placeholder="Enter Name" >
+                value="{{ $data->enddate }}">
             </div>
 
             <div class="form-group">
-                <label for="exampleInputName">Image </label>
-                <input type="file" name="image">
+                <label for="exampleInputPassword">Image</label>
+                <input type="file" id="exampleInputPassword1" name="image">
             </div>
+            <p>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+                <img src="{{asset('images').'/'. $data->image }}" alt="" width="200" height="200">
+
+            </p>
+
+            <div class="row">
+
+                <button type="submit" class="btn btn-success text-center mx-auto py-2 px-5">save</button>
+            </div>
         </form>
     </div>
 
